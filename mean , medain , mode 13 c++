@@ -1,0 +1,98 @@
+#include <iostream>
+
+using namespace std;
+
+void mode(int[], int);
+void mean(int[], int);
+void sort(int[], int);
+void median(int[], int);
+
+int main()
+{
+
+   int array[15];
+   float total, mode;
+   int n = 15;//number of elements in array
+
+    //fill in the value of array
+    for(int i=0; i<n; i++){
+        cout << "fill in the "<< i+1 << " number. :";
+        cin >> array[i];
+    }
+
+    sort(array, n);
+    return 0;
+}
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+void mean(int new_array[], int num){
+ //GET TOTAL & CALCULATE MEAN
+    float total;
+    for(int i=0;i<num; i++){
+        total += new_array[i];
+    }
+    cout << "The mean is " << total/num << endl;
+    mode(new_array, num);
+    }
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+void median(int new_array[], int num){
+    //CALCULATE THE MEDIAN (middle number)
+    if(num % 2 != 0){// is the # of elements odd?
+        int temp = ((num+1)/2)-1;
+        cout << "The median is " << new_array[temp] << endl;
+    }
+    else{// then it's even! :)
+        cout << "The median is "<< new_array[(num/2)-1] << " and " << new_array[num/2] << endl;
+    }
+    mean(new_array, num);
+}
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+void mode(int new_array[], int num) {
+    int* ipRepetition = new int[num];
+    // alocate a new array in memory of the same size (round about way of defining number of elements by a variable)
+    for (int i = 0; i < num; i++) {
+        ipRepetition[i] = 0;//initialize each element to 0
+        int j = 0;//
+        while ((j < i) && (new_array[i] != new_array[j])) {
+            if (new_array[i] != new_array[j]) {
+                j++;
+            }
+        }
+        (ipRepetition[j])++;
+    }
+    int iMaxRepeat = 0;
+    for (int i = 1; i < num; i++) {
+        if (ipRepetition[i] > ipRepetition[iMaxRepeat]) {
+            iMaxRepeat = i;
+        }
+    }
+    cout<< "The mode is " << new_array[iMaxRepeat] << endl;
+
+}
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+void sort(int new_array[], int num){
+     //ARRANGE VALUES
+    for(int x=0; x<num; x++){
+         for(int y=0; y<num-1; y++){
+             if(new_array[y]>new_array[y+1]){
+                 int temp = new_array[y+1];
+                 new_array[y+1] = new_array[y];
+                 new_array[y] = temp;
+             }
+         }
+     }
+    cout << "List: ";
+    for(int i =0; i<num; i++){
+        cout << new_array[i] << " ";
+    }
+    cout << "\n";
+    median(new_array, num);
+}
